@@ -8,17 +8,21 @@ Spring Boot based Knative functions can easily be built as GraalVM native images
 # Installation
 
 1. install Knative - https://knative.dev/docs/install/
-1. install `kn` CLI - https://knative.dev/docs/client/install-kn/
 1. install `func` CLI - https://knative.dev/docs/functions/install-func/
 
 # The first function
 
 ## Crating the function
 
-Run the following command to craete youe first `springboot` Knative `http` function:
+Run the following command to create youe first `springboot` Knative `http` function:
 
 ```sh
 func create kn-fun -l springboot -t http
+```
+
+We then change to the function directory. Since all `func` commands will use the current directory as the path and also as the name of the function, this allows us to not repeat this information for each command.
+
+```sh
 cd kn-fun
 ```
 
@@ -33,7 +37,9 @@ You can run the following to set the registry to use for the image and then buil
 
 ```sh
 export FUNC_REGISTRY=docker.io/springdeveloper
-./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.2:build -Dimage=$FUNC_REGISTRY/kn-fun
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.2:build \
+  -Dimage=$FUNC_REGISTRY/kn-fun \
+  -Djib.container.user=1000
 ```
 
 > Note: The above command creates an `amd64` based image which you can deploy to an Intel based cluster. If you are on an ARM based system and want to use Kind as the deplyment cluster, then you can configure Jib to build multi-arch images. Add the following build plugin to the `pom.xml`.
@@ -43,35 +49,38 @@ export FUNC_REGISTRY=docker.io/springdeveloper
             <artifactId>jib-maven-plugin</artifactId>
             <version>3.3.2</version>
             <configuration>
-            <from>
-                <image>eclipse-temurin:17-jre</image>
-                <platforms>
-                <platform>
-                    <architecture>amd64</architecture>
-                    <os>linux</os>
-                </platform>
-                <platform>
-                    <architecture>arm64</architecture>
-                    <os>linux</os>
-                </platform>
-                </platforms>
-            </from>
+                <from>
+                    <image>eclipse-temurin:17-jre</image>
+                    <platforms>
+                        <platform>
+                            <architecture>amd64</architecture>
+                            <os>linux</os>
+                        </platform>
+                        <platform>
+                            <architecture>arm64</architecture>
+                            <os>linux</os>
+                        </platform>
+                    </platforms>
+                </from>
+                <container>
+                    <user>1000</user>
+                </container>
             </configuration>
         </plugin>
 ```
 
 ## Deploying the function
 
-To deploy the function we use the `kn` CLI instead of the `func` CLI. The `func` CLI works best when you use it to both build and deploy the function. Since we already built and pushed the image it is easier and more flexible to use the `kn` CLI. Either way we end up with a Knative Service that runs our `springboot` function:
+To deploy the function we use the `func` CLI and specify not to build or push the image since we already did that during the build with Jib:
 
 ```sh
-kn service create kn-fun --image $FUNC_REGISTRY/kn-fun
+func deploy --build=false --push=false --image=$FUNC_REGISTRY/kn-fun
 ```
 
 Once the function gets deployed we can access it with CURL. Make note of the URL that is displayed when deployment completes.
 
 ```sh
-APP_URL=<the-url-for-deployment>
+APP_URL=<the-url-for-the-function>
 curl $APP_URL -H 'content-type: text/plain' -d SpringOne
 ```
 
