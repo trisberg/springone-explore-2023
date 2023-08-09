@@ -8,7 +8,7 @@ SpringOne at VMware Explore 2023 :: Scaling Your Spring Boot App to Zero
 1. Native build with TAP
 1. Getting started with JVM Checkpoint/Restore builds
 1. Using JVM Checkpoint/Restore on Knative
-1. Using JVM Checkpoint/Restore on TAP
+1. [Using JVM Checkpoint/Restore on TAP](TAP-checkpoint-restore.md)
 
 # Links
 
