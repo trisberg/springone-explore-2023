@@ -47,7 +47,11 @@ spec:
         branch: main
 ```
 
-We change the `spec.build.env` entry for `BP_NATIVE_IMAGE` to `"true"`. Once that is done we can build this project from the local source files using:
+We change the `spec.build.env` entry for `BP_NATIVE_IMAGE` to `"true"`. 
+
+## Building the project
+
+Once the change for the native build is done, we can build this project from the local source files using:
 
 > Note: The following command assumes you want to deply to the `apps` namespace and that your local-source-proxy feature is enabled for the cluster you are using.
 
