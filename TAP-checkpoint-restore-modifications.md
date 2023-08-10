@@ -1,9 +1,9 @@
 # Modifying TAP cluster when using JVM Checkpoint/Restore
 
-There are some modifications needed to be able to apps using JVM Checkpoint/Restore on a TAP cluster.
+There are some modifications needed to be able to deploy apps using JVM Checkpoint/Restore on a TAP cluster.
 These modifications have been tested on a TAP v1.6.1 cluster using the `full` profile.
 
-> Note: This is experimental and should only be used on deployments used for testing or exploration.
+> **Note: This is experimental and should only be used on clusters used for testing or exploration.**
 
 ## For a TAP cluster with pod security enabled via Kyverno
 
@@ -154,7 +154,7 @@ spec:
 EOF
 ```
 
-## Changes fFor a "Build" cluster (full, iter or build profiles)
+## Changes for a "Build" cluster (full, iter or build profiles)
 
 ### Update configuration and exclude the convention-template and config-template
 

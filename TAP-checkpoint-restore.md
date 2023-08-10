@@ -74,7 +74,7 @@ curl $APP_URL
 
 You should see a message like the following:
 
-```sh
+```
 % curl $APP_URL                                                                            
 Hello World from hello-world-00001-deployment-77df7db96f-wcnlm at 2023-08-09T21:02:49.716763576Z
 ```
@@ -84,7 +84,7 @@ Hello World from hello-world-00001-deployment-77df7db96f-wcnlm at 2023-08-09T21:
 You can access the logs by running:
 
 ```sh
-kubectl logs -l=app.kubernetes.io/component=run,app.kubernetes.io/part-of=hello-world -c workload
+kubectl logs deploy/hello-world-00001-deployment -c workload
 ```
 
 The first time the app is started on a node you will see logs like the following. The logs show the first start followed by a checkpoint and a restart of the app, now restoring from the checkpoit files.
