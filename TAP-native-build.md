@@ -12,7 +12,7 @@ Let's start by selecting the "Spring Cloud Serverless" accelerator which sounds 
 
 We give it a name of "hello-tap" and hit the `NEXT` button which let's us review and then select `GENERATE ACCELERATOR` to create a ZIP file with our new project that we can download.
 
-Once downloaded we'll unzip this archive and can now start developing our new project.
+Once downloaded, we'll unzip this archive and can now start developing our new project.
 
 ```sh
 unzip ~/Downloads/hello-tap.zip
