@@ -5,6 +5,8 @@ These modifications have been tested on a TAP v1.6.1 cluster using the `full` pr
 
 > **Note: This is experimental and should only be used on clusters used for testing or exploration.**
 
+> Credit: Thanks to [Timo Salm](https://github.com/timosalm) for figuring all of this out and creating scripts for us.
+
 ## For a TAP cluster with pod security enabled via Kyverno
 
 > Note: This requires cluster admin permissions
