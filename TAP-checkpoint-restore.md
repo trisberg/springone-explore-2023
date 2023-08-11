@@ -2,7 +2,29 @@
 
 ## Prepare your TAP cluster
 
-There are some modifications needed for the cluster, see the [Modifying TAP cluster when using JVM Checkpoint/Restore](TAP-checkpoint-restore-modifications.md) document for details.
+There are several modifications needed for a TAP cluster.
+
+> **Note: This is experimental and should only be used on clusters used for testing or exploration.**
+
+### For a TAP cluster with pod security enabled via Kyverno
+
+> Note: This requires cluster admin permissions
+
+Remove the security policy enforcements for the `apps` namespace using the following (adjust the namespace as needed):
+
+```sh
+export APP_NAMESPACE=apps
+kubectl patch configmap kyverno -n kyverno --type merge -p '{"data":{"webhooks":"[{\"namespaceSelector\": {\"matchExpressions\": [{\"key\":\"kubernetes.io/metadata.name\",\"operator\":\"NotIn\",\"values\":[\"kyverno\"]},{\"key\":\"kubernetes.io/metadata.name\",\"operator\":\"NotIn\",\"values\":[\"'$APP_NAMESPACE'\"]}]}}]"}}'
+kubectl label ns $APP_NAMESPACE pod-security.kubernetes.io/enforce-
+```
+
+### Modifications needed for build clusters (full, iter or build profiles)
+
+See the [Modifying TAP build cluster when using JVM Checkpoint/Restore](TAP-checkpoint-restore-modifications.md) doc.
+
+### Modifications needed for run clusters (full, iter or run profiles)
+
+See the [Modifying Knative configuration when using JVM Checkpoint/Restore](Knative-checkpoint-restore-modifications.md) doc.
 
 ## Create a workload file
 
