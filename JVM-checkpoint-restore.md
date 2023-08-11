@@ -6,10 +6,12 @@ Spring reference docs has some coverage for [JVM Checkpoint Restore](https://doc
 
 We will use a snapshot version of Spring Boot and Spring Framework that has improved support for JVM Checkpoint/Restore.
 
+> Note: You need to have `curl` installed
+
 We can use [start.spring.io](start.spring.io) to generate a new project to use:
 
 ```sh
-wget 'https://start.spring.io/starter.zip?type=maven-project&language=java&bootVersion=3.2.0-SNAPSHOT&baseDir=demo&groupId=com.example&artifactId=demo&name=demo&description=Demo project for Spring Boot&packageName=com.example.demo&packaging=jar&javaVersion=17&dependencies=web,actuator' -O demo.zip
+curl https://start.spring.io/starter.zip -d "type=maven-project&language=java&bootVersion=3.2.0-SNAPSHOT&baseDir=demo&groupId=com.example&artifactId=demo&name=demo&description=Demo project for Spring Boot&packageName=com.example.demo&packaging=jar&javaVersion=17&dependencies=web,actuator" -o demo.zip
 ```
 
 Extract the project and change to the `demo` directory:
