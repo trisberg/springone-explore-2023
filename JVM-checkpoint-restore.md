@@ -14,10 +14,21 @@ We can use [start.spring.io](start.spring.io) to generate a new project to use:
 curl https://start.spring.io/starter.zip -d "type=maven-project&language=java&bootVersion=3.2.0-SNAPSHOT&baseDir=demo&groupId=com.example&artifactId=demo&name=demo&description=Demo project for Spring Boot&packageName=com.example.demo&packaging=jar&javaVersion=17&dependencies=web,actuator" -o demo.zip
 ```
 
-Extract the project and change to the `demo` directory:
+Extract the project 
 
 ```sh
 unzip demo.zip
+```
+
+On Windows you can run:
+
+```sh
+tar -xf demo.zip
+```
+
+Change to the `demo` directory:
+
+```sh
 cd demo
 ```
 
@@ -39,6 +50,12 @@ Create a Java source file for the controller:
 
 ```sh
 touch src/main/java/com/example/demo/DemoController.java
+```
+
+On Windows you can run:
+
+```sh
+type nul > src/main/java/com/example/demo/DemoController.java
 ```
 
 Add the following content to the `src/main/java/com/example/demo/DemoController.java` file:
@@ -94,6 +111,7 @@ WORKDIR /home/app
 # Add App
 COPY target/demo-*.jar /home/app/demo.jar
 COPY docker/entrypoint.sh /opt/app/entrypoint.sh
+RUN chmod +x opt/app/entrypoint.sh
 
 CMD ["/opt/app/entrypoint.sh"]
 ```
@@ -106,8 +124,18 @@ Create a `docker` directory with an empty script file:
 
 ```sh
 mkdir docker
+```
+
+Create the empty `docker/entrypoint.sh` file:
+
+```sh
 touch docker/entrypoint.sh
-chmod +x docker/entrypoint.sh
+```
+
+On Windows you can run:
+
+```sh
+type nul > src/main/java/com/example/demo/DemoController.java
 ```
 
 Next, edit the `docker/entrypoint.sh` file and add this content:
@@ -136,9 +164,11 @@ exec java -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmana
 
 ## Build the docker image
 
-We can now create the image by running:
+We can now create the image by running the following.
 
-```
+On macOS/Linux use:
+
+```sh
 case $(uname -m) in
     arm64)   arch="aarch64" ;;
     *)       arch="x64" ;;
@@ -146,6 +176,14 @@ esac
 echo "Using CRaC enabled JDK with arch $arch"
 ./mvnw clean package -DskipTests --no-transfer-progress
 docker build -t springdeveloper/demo:0.0.1 --build-arg ARCH=$arch .
+```
+
+On Windows use:
+
+```sh
+echo "Using CRaC enabled JDK with arch x64"
+mvnw clean package -DskipTests --no-transfer-progress
+docker build -t springdeveloper/demo:0.0.1 --build-arg ARCH=x64 .
 ```
 
 ## Run the docker image
@@ -156,6 +194,24 @@ When the image is built, we can run it locally. We need to define a volume to st
 docker run -it --rm -p 8080:8080 -e CRAC_FILES_DIR=/crac/demo/0.0.1 --name demo \
   --mount source=cracvol,target=/crac \
   --cap-add CHECKPOINT_RESTORE --cap-add NET_ADMIN --cap-add SYS_PTRACE --cap-add SYS_ADMIN \
+  springdeveloper/demo:0.0.1
+```
+
+On Windows using Command Prompt you can run:
+
+```sh
+docker run -it --rm -p 8080:8080 -e CRAC_FILES_DIR=/crac/demo/0.0.1 --name demo ^
+  --mount source=cracvol,target=/crac ^
+  --cap-add CHECKPOINT_RESTORE --cap-add NET_ADMIN --cap-add SYS_PTRACE --cap-add SYS_ADMIN ^
+  springdeveloper/demo:0.0.1
+```
+
+On Windows using Power Shell you can run:
+
+```sh
+docker run -it --rm -p 8080:8080 -e CRAC_FILES_DIR=/crac/demo/0.0.1 --name demo `
+  --mount source=cracvol,target=/crac `
+  --cap-add CHECKPOINT_RESTORE --cap-add NET_ADMIN --cap-add SYS_PTRACE --cap-add SYS_ADMIN `
   springdeveloper/demo:0.0.1
 ```
 
