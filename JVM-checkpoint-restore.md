@@ -101,7 +101,7 @@ WORKDIR /home/app
 # Add App
 COPY target/demo-*.jar /home/app/demo.jar
 COPY docker/entrypoint.sh /opt/app/entrypoint.sh
-RUN chmod +x opt/app/entrypoint.sh
+RUN chmod +x /opt/app/entrypoint.sh
 
 CMD ["/opt/app/entrypoint.sh"]
 ```
@@ -149,8 +149,6 @@ exec java -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmana
 ## Build the docker image
 
 We can now create the image by running the following.
-
-On macOS/Linux use:
 
 ```sh
 case $(uname -m) in
