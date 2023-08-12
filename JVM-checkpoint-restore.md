@@ -1,6 +1,8 @@
 # Getting started with JVM Checkpoint/Restore builds
 
-Spring reference docs has some coverage for [JVM Checkpoint Restore](https://docs.spring.io/spring-framework/reference/6.1/integration/checkpoint-restore.html). 
+Spring reference docs has some coverage for [JVM Checkpoint Restore](https://docs.spring.io/spring-framework/reference/6.1/integration/checkpoint-restore.html).
+
+> Note: At the moment this demo only works on macOS and Linux. On Windows the checkpoint restore fails.
 
 ## Creating the project to use
 
@@ -18,12 +20,6 @@ Extract the project
 
 ```sh
 unzip demo.zip
-```
-
-On Windows you can run:
-
-```sh
-tar -xf demo.zip
 ```
 
 Change to the `demo` directory:
@@ -50,12 +46,6 @@ Create a Java source file for the controller:
 
 ```sh
 touch src/main/java/com/example/demo/DemoController.java
-```
-
-On Windows you can run:
-
-```sh
-type nul > src/main/java/com/example/demo/DemoController.java
 ```
 
 Add the following content to the `src/main/java/com/example/demo/DemoController.java` file:
@@ -132,12 +122,6 @@ Create the empty `docker/entrypoint.sh` file:
 touch docker/entrypoint.sh
 ```
 
-On Windows you can run:
-
-```sh
-type nul > src/main/java/com/example/demo/DemoController.java
-```
-
 Next, edit the `docker/entrypoint.sh` file and add this content:
 
 ```
@@ -178,14 +162,6 @@ echo "Using CRaC enabled JDK with arch $arch"
 docker build -t springdeveloper/demo:0.0.1 --build-arg ARCH=$arch .
 ```
 
-On Windows use:
-
-```sh
-echo "Using CRaC enabled JDK with arch x64"
-mvnw clean package -DskipTests --no-transfer-progress
-docker build -t springdeveloper/demo:0.0.1 --build-arg ARCH=x64 .
-```
-
 ## Run the docker image
 
 When the image is built, we can run it locally. We need to define a volume to store the checkpoint files and we also ned to set some extra capabilities for checkpoint/restore to work. Run with the following command:
@@ -194,24 +170,6 @@ When the image is built, we can run it locally. We need to define a volume to st
 docker run -it --rm -p 8080:8080 -e CRAC_FILES_DIR=/crac/demo/0.0.1 --name demo \
   --mount source=cracvol,target=/crac \
   --cap-add CHECKPOINT_RESTORE --cap-add NET_ADMIN --cap-add SYS_PTRACE --cap-add SYS_ADMIN \
-  springdeveloper/demo:0.0.1
-```
-
-On Windows using Command Prompt you can run:
-
-```sh
-docker run -it --rm -p 8080:8080 -e CRAC_FILES_DIR=/crac/demo/0.0.1 --name demo ^
-  --mount source=cracvol,target=/crac ^
-  --cap-add CHECKPOINT_RESTORE --cap-add NET_ADMIN --cap-add SYS_PTRACE --cap-add SYS_ADMIN ^
-  springdeveloper/demo:0.0.1
-```
-
-On Windows using Power Shell you can run:
-
-```sh
-docker run -it --rm -p 8080:8080 -e CRAC_FILES_DIR=/crac/demo/0.0.1 --name demo `
-  --mount source=cracvol,target=/crac `
-  --cap-add CHECKPOINT_RESTORE --cap-add NET_ADMIN --cap-add SYS_PTRACE --cap-add SYS_ADMIN `
   springdeveloper/demo:0.0.1
 ```
 
