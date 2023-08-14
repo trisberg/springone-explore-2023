@@ -4,7 +4,7 @@ This also applies to TAP run clusters (full, iter or run profiles).
 
 There are some modifications needed to be able to deploy apps using JVM Checkpoint/Restore on Knative.
 
-> Credit: Thanks to [Timo Salm](https://github.com/timosalm) for figuring all of this out and creating scripts for us.
+> Credit: Thanks to Sébastien Deleuze, Timo Salm and Violeta Georgieva for figuring all of this out and also creating scripts for us.
 
 > Note: This requires cluster admin permissions
 

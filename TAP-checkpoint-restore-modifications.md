@@ -3,7 +3,7 @@
 There are some modifications needed to be able to deploy apps using JVM Checkpoint/Restore on a TAP build cluster (full, iter or build profiles).
 These modifications have been tested on a TAP v1.6.1 cluster using the `full` profile.
 
-> Credit: Thanks to [Timo Salm](https://github.com/timosalm) for figuring all of this out and creating scripts for us.
+> Credit: Thanks to Sébastien Deleuze, Timo Salm and Violeta Georgieva for figuring all of this out and also creating scripts for us.
 
 ## Changes for a "Build" cluster
 
