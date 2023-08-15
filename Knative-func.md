@@ -33,10 +33,15 @@ There are two types of function templates, `http` and `cloudevents`. We are star
 
 Knative func uses Paketo buildpacks for building `springboot` functions. This works fine on Intel based systems but ARM based systems are currently not supported. Building your function with a buildpack is also a bit slow, so we prefer to build with [Jib](https://github.com/GoogleContainerTools/jib) to speed things up. Jib also works great on ARM based systems.
 
-You can run the following to set the registry to use for the image and then build the function:
+You can run the following to set the registry to use for the image:
 
 ```sh
 export FUNC_REGISTRY=docker.io/springdeveloper
+```
+
+Then, run this build the function creating a new image in the registry set above:
+
+```sh
 ./mvnw compile com.google.cloud.tools:jib-maven-plugin:3.3.2:build \
   -Dimage=$FUNC_REGISTRY/kn-fun \
   -Djib.container.user=1000
@@ -77,10 +82,23 @@ To deploy the function we use the `func` CLI and specify not to build or push th
 func deploy --build=false --push=false --image=$FUNC_REGISTRY/kn-fun
 ```
 
-Once the function gets deployed we can access it with CURL. Make note of the URL that is displayed when deployment completes.
+Once the function gets deployed we can access it with CURL. 
+
+We can set APP_URL env var to the URL that is displayed when deployment completes.
 
 ```sh
 APP_URL=<the-url-for-the-function>
+```
+
+We can also get the URL from tke Knative service status:
+
+```sh
+APP_URL=$(kubectl get service.serving.knative.dev/kn-fun -ojsonpath='{.status.url}')
+```
+
+Now, we can access the deployed function:
+
+```sh
 curl $APP_URL -H 'content-type: text/plain' -d SpringOne
 ```
 
@@ -98,6 +116,8 @@ There are two installation steps documented in the Knative Functions cluster bui
 ### Push your function code to a Git repo
 
 You can create a Git repo with your function code using the following.
+
+> Note: You can skip this step and just use the already created Git repo with the URL  https://github.com/trisberg/kn-fun
 
 Create an empty public Git repository using GitHub UI or any other Git host and then set your Git remote.
 As an example:
