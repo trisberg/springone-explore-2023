@@ -31,8 +31,15 @@ SpringOne at VMware Explore 2023 :: Scaling Your Spring Boot App to Zero
 
 ## Links
 
+### Tanzu Academy - Developer Sandbox
+
+- https://bit.ly/TanzuDevTry
+- https://tanzu.academy/guides/developer-sandbox
+
+<img src="images/bit.ly_TanzuDevTry.png" alt="QR Code" width="300"/>
+
 ### This repo
 
-https://github.com/trisberg/springone-explore-2023
+- https://github.com/trisberg/springone-explore-2023
 
 ![QR Code](images/springone-explore-2023.png)
