@@ -1,5 +1,19 @@
 # Native build with TAP
 
+## Trying this out on Tanzu Academy Developer Sandbox
+
+You can try running this demo on the new [Developer Sandbox Lab](https://tanzu.academy/guides/developer-sandbox) at Tanzu Academy.
+
+Step "2: Deploy my first application using the embedded terminal" has a link to the "Dev Portal". Once you click that link look for the Accelerator menu on the left :: <img src="images/backstage-accelerator-menu.png" alt="Accelerator Menu" style="width:125px;"/>. Use this in the next step to generate a new project from an accelerator.
+
+Step "3: Access Tanzu Application Platform Sandbox from your local machine" has a link to download a `.kube/config` file :: <img src="images/download-kube-config.png" alt="Accelerator Menu" style="width:250px;"/>. After downloading it, you can set your Kubernetes config to point to this file:
+
+```sh
+export KUBECONFIG=~/Downloads/config
+```
+
+You should now be all set to run this demo on the Developer Sandbox cluster.
+
 ## Generating a new project from an accelerator
 
 We can kickstart our app development using one of the sample accelerators provided by TAP. We select all accelerators that are tagged as "serverless".
@@ -65,7 +79,7 @@ We can then follow the progress of the workload winding its way through the supp
 tanzu apps workload get hello-tap
 ```
 
-Since this is a native build, it could take 10 minutes or longer to complete, so be patient.
+Since this is a native build, it could take 10 minutes or longer to complete, please be patient.
 
 ## Access the app
 
