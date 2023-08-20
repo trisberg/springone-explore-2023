@@ -4,7 +4,7 @@
 
 You can try running this demo on the new [Developer Sandbox Lab](https://tanzu.academy/guides/developer-sandbox) at Tanzu Academy.
 
-Step "2: Deploy my first application using the embedded terminal" has a link to the "Dev Portal". Once you click that link look for the Accelerator menu on the left :: <img src="images/backstage-accelerator-menu.png" alt="Accelerator Menu" style="width:125px;"/>. Use this in the next step to generate a new project from an accelerator.
+Step "2: Deploy my first application using the embedded terminal" has a link to the "Tanzu Developer Portal". Once you click that link look for the Accelerator menu on the left :: <img src="images/backstage-accelerator-menu.png" alt="Accelerator Menu" style="width:125px;"/>. Use this in the next step to generate a new project from an accelerator.
 
 Step "3: Access Tanzu Application Platform Sandbox from your local machine" has a link to download a `.kube/config` file :: <img src="images/download-kube-config.png" alt="Accelerator Menu" style="width:250px;"/>. After downloading it, you can set your Kubernetes config to point to this file:
 
@@ -15,6 +15,10 @@ export KUBECONFIG=~/Downloads/config
 You should now be all set to run this demo on the Developer Sandbox cluster.
 
 ## Generating a new project from an accelerator
+
+You can use the Tanzu CLI, VS Code or IntelliJ with the "Tanzu App Accelerator" plugin installed or you can use the "Dev Portal".
+
+### Using the Dev Portal
 
 We can kickstart our app development using one of the sample accelerators provided by TAP. We select all accelerators that are tagged as "serverless".
 
@@ -32,6 +36,58 @@ Once downloaded, we'll unzip this archive and can now start developing our new p
 unzip ~/Downloads/hello-tap.zip
 cd hello-tap
 ```
+
+### Using the Tanzu CLI
+
+When we generate a new project we need the URL for the "Tanzu Developer Portal". If you are using the Tanzu Academy Developer Sandbox, then you can use the link provided on the first lab.
+
+```sh
+export PORTAL_URL=<the-URL-for-dev-portal"
+```
+
+We can list all serverless accelerators using:
+
+```sh
+tanzu accelerator list --tags serverless --server-url $PORTAL_URL
+```
+That should show something like this:
+
+```sh
+NAME                      TAGS                                                  READY
+java-function             [beta java spring function serverless knative faas]   true
+node-function             [beta node function serverless knative faas]          true
+python-function           [beta python function serverless knative faas]        true
+spring-cloud-serverless   [java spring cloud serverless tanzu]                  true
+```
+
+We can now generate a new project by selecting the `spring-cloud-serverless` accelerator and passing in some config options and the `server-url`:
+
+```sh
+tanzu accelerator generate spring-cloud-serverless --options '{"deploymentType" : "workload", "includeBuildToolWrapper" : true, "projectName" : "hello-tap"}' --server-url $PORTAL_URL
+```
+
+Once download completes, we'll unzip this archive and can now start developing our new project.
+
+```sh
+unzip ~/Downloads/hello-tap.zip
+cd hello-tap
+```
+
+### Using the an IDE
+
+When we configure the Accelerator IDE plugin, we need the URL for the "Tanzu Developer Portal". If you are using the Tanzu Academy Developer Sandbox, then you can use the link provided on the first lab.
+
+Once the plugin is configured we can select to show all serverless accelerators:
+
+![Accelerators](images/vscode-serverless-accelerators.png)
+
+We can select the "Spring Cloud Serverless" accelerator which sounds like a good fit for native builds.
+
+![Accelerators](images/vscode-spring-cloud-serverless-accelerator.png)
+
+We give it a name of "hello-tap" and hit the `Next Step` which let's us review and then select `Generate Project` to generate, download and extract a ZIP file into a new project location.
+
+## Modifying the generated project
 
 The download project contains a `workload.yaml` file in the `config` directory and we can modify this file so we can have the project built as a GraalVM native image.
 
@@ -142,6 +198,8 @@ Here you can verify that this is an "AOT-processed HelloAppApplication using Jav
 
 ## More advanced configurations
 
+> Note: This deployment doesn't currently work on the Tanzu Academy Sand Box.
+
 This first Spring Cloud Function sample was fairly simple and did not require a lot of configuration. Once you add database connection and deploy a regular web app you will need additional configuration for the build step to detect everything that should be included in the native image. There is an example project that was generated from the "Tanzu Java Restful Web App" sample accelerator available at https://github.com/trisberg/customer-profile.
 
 The `workload.yaml` file has many additional `spec.build.env` entries, basically all of the same env vars that are provided for the deployed app.
@@ -223,4 +281,12 @@ Before deploying this app, you would need to create a database that will be used
 
 ```sh
 tanzu service class-claim create customer-database --class postgresql-unmanaged -n apps
+```
+
+When the app is ready we can interact with it:
+
+```sh
+APP_URL=$(kubectl get service.serving.knative.dev/customer-profile -ojsonpath='{.status.url}')
+curl -X POST -H 'Content-Type: application/json' $APP_URL/api/customer-profiles -d '{"firstName": "Joe", "lastName": "Doe", "email": "joe.doe@test.org"}'
+curl -X GET $APP_URL/api/customer-profiles/
 ```
