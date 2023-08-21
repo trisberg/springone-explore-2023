@@ -80,7 +80,13 @@ Since the CRaC feature relies on CRIU support in the Linux kernel, and we want t
 
 > Note: The processor architecture needs to match the OpenJDK implementation, so we need to pass in an `ARCH` argument with the architecture. We need to specify `aarch64` for ARM based systems like Macs with M1/M2 chips or `x64` for AMD/Intel non-ARM systems.
 
-Create a `Dockerfile` file in the root of the project with this content:
+Create a `Dockerfile` file in the root of the project:
+
+```sh
+touch Dockerfile
+```
+
+Add with this content to the Dockerfile:
 
 ```
 FROM ubuntu:22.04
