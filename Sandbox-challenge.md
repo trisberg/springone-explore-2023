@@ -13,24 +13,24 @@ This is a "cheat sheet" for the commands you need to run:
     ```
 4. Generate a project from the spring-cloud-serverless accelerator
     ```sh
-    tanzu accelerator generate tanzu-java-web-app --options '{"buildTool" : "maven",  "javaVersion" : "17",  "nativeBuild" : true,  "projectName" : "hello-tap",  "springBootVersion" : "3.1"}'
+    tanzu accelerator generate tanzu-java-web-app --options '{"buildTool" : "maven",  "javaVersion" : "17",  "nativeBuild" : true,  "projectName" : "tanzu-native",  "springBootVersion" : "3.1"}'
     ```
 5. Unzip and cd to the app directory
     ```sh
-    unzip ~/Downloads/hello-tap.zip
-    cd hello-tap
+    unzip ~/Downloads/tanzu-native.zip
+    cd tanzu-native
     ```
 6. Deploy the native workload
     ```sh
-    tanzu apps workload create hello-tap -y -f config/workload-native.yaml --local-path .
+    tanzu apps workload create tanzu-native -y -f config/workload-native.yaml --local-path .
     ```
 7. Play some elevator music while you wait for the build to finish (~15 min)
     ```sh
-    tanzu apps workload get hello-tap
+    tanzu apps workload get tanzu-native
     ```
 8. When the app becomes ready it will show a URL, capture that URL
     ```sh
-    APP_URL=$(kubectl get service.serving.knative.dev/hello-tap -ojsonpath='{.status.url}')
+    APP_URL=$(kubectl get service.serving.knative.dev/tanzu-native -ojsonpath='{.status.url}')
     ```
 9. Invoke the app using `curl`
     ```sh
