@@ -37,7 +37,7 @@ SpringOne at VMware Explore 2023 :: Scaling Your Spring Boot App to Zero
 
 ### Slides
 
-- TBD
+[SpringOne at VMware Explore 2023 Scaling Your Spring Boot App to Zero](SpringOne_at_VMware_Explore_2023_Scaling_Your_Spring_Boot_App_to_Zero.pdf)
 
 ### JVM Checkpoint/Restore demo app
 
