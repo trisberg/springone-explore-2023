@@ -75,7 +75,7 @@ cd hello-tap
 
 ### Using the an IDE
 
-When we configure the Accelerator IDE plugin, we need the URL for the "Tanzu Developer Portal". If you are using the Tanzu Academy Developer Sandbox, then you can use the link provided on the first lab.
+When we configure the Accelerator IDE plugin, we need the URL for the "Tanzu Developer Portal". If you are using the Tanzu Academy Developer Sandbox, then you can use the link provided on the first lab. The config setting for the lates version in the marketplace is `tanzu-app-accelerator.tanzuApplicationPlatformGuiUrl`.
 
 Once the plugin is configured we can select to show all serverless accelerators:
 
