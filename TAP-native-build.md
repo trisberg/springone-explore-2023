@@ -198,7 +198,7 @@ Here you can verify that this is an "AOT-processed HelloAppApplication using Jav
 
 ## More advanced configurations
 
-> Note: This deployment doesn't currently work on the Tanzu Academy Sand Box.
+> Note: The Tanzu Academy Sandbox nodes are currently not configured for this type of build with service bindings. We are working on improving the sandbox experince soon.
 
 This first Spring Cloud Function sample was fairly simple and did not require a lot of configuration. Once you add database connection and deploy a regular web app you will need additional configuration for the build step to detect everything that should be included in the native image. There is an example project that was generated from the "Tanzu Java Restful Web App" sample accelerator available at https://github.com/trisberg/customer-profile.
 
