@@ -29,7 +29,25 @@ SpringOne at VMware Explore 2023 :: Scaling Your Spring Boot App to Zero
 1. [Using JVM Checkpoint/Restore on Knative](Knative-checkpoint-restore.md)
 1. [Using JVM Checkpoint/Restore on TAP](TAP-checkpoint-restore.md)
 
+## Challenge
+
+1. [Tanzu Academy - Developer Sandbox Challenge](Sandbox-challenge.md)
+
 ## Links
+
+### Slides
+
+- TBD
+
+### JVM Checkpoint/Restore demo app
+
+- https://github.com/trisberg/hello-world
+
+This app has instructions for running it:
+- locally using Docker
+- kubernetes deployment/service
+    - including [notes](https://github.com/trisberg/hello-world/blob/main/keda/README.md) for scaling with Keda
+- knative service
 
 ### Tanzu Academy - Developer Sandbox
 
