@@ -18,13 +18,13 @@ kubectl patch configmap kyverno -n kyverno --type merge -p '{"data":{"webhooks":
 kubectl label ns $APP_NAMESPACE pod-security.kubernetes.io/enforce-
 ```
 
-### Modifications needed for build clusters (full, iter or build profiles)
-
-See the [Modifying TAP build cluster when using JVM Checkpoint/Restore](TAP-checkpoint-restore-modifications.md) doc.
-
 ### Modifications needed for run clusters (full, iter or run profiles)
 
 See the [Modifying Knative configuration when using JVM Checkpoint/Restore](Knative-checkpoint-restore-modifications.md) doc.
+
+### Modifications needed for build clusters (full, iter or build profiles)
+
+See the [Modifying TAP build cluster when using JVM Checkpoint/Restore](TAP-checkpoint-restore-modifications.md) doc.
 
 ## Create a workload file
 
@@ -91,13 +91,12 @@ APP_URL=$(kubectl get service.serving.knative.dev/hello-world -ojsonpath='{.stat
 Then you can use CURL to invoke the app:
 
 ```sh
-curl $APP_URL
+curl -w'\n' $APP_URL
 ```
 
 You should see a message like the following:
 
 ```
-% curl $APP_URL                                                                            
 Hello World from hello-world-00001-deployment-77df7db96f-wcnlm at 2023-08-09T21:02:49.716763576Z
 ```
 
@@ -146,7 +145,9 @@ CR: Checkpoint ...
 2023-08-09T21:05:44.563Z  INFO 129 --- [Attach Listener] o.s.c.support.DefaultLifecycleProcessor  : Spring-managed lifecycle restart completed in 53 ms
 ```
 
-Any subsequent starts will just show the restoring from the checkpoint files and startup is :
+> Note: if you cluster has several nodes then you might have to try this several times to see tha app restore from the checkpoint files. The node name is part of the `CRAC_FILES_DIR` setting.
+
+Any subsequent starts on the same node will just show the restoring from the checkpoint files and startup is :
 
 ```
 2023-08-09T21:11:57.069Z  INFO 129 --- [           main] c.example.hello.HelloWorldConfiguration  : app.message: World
