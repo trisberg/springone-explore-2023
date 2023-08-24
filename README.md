@@ -6,6 +6,11 @@ SpringOne at VMware Explore 2023 :: Scaling Your Spring Boot App to Zero
 
 [https://springone.io/sessions/scaling-your-spring-boot-app-to-zero](https://springone.io/sessions/scaling-your-spring-boot-app-to-zero)
 
+## Slides
+
+[SpringOne at VMware Explore 2023 Scaling Your Spring Boot App to Zero](SpringOne_at_VMware_Explore_2023_Scaling_Your_Spring_Boot_App_to_Zero.pdf)
+
+
 ## Tools to install
 
 1. [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
@@ -34,10 +39,6 @@ SpringOne at VMware Explore 2023 :: Scaling Your Spring Boot App to Zero
 1. [Tanzu Academy - Developer Sandbox Challenge](Sandbox-challenge.md)
 
 ## Links
-
-### Slides
-
-[SpringOne at VMware Explore 2023 Scaling Your Spring Boot App to Zero](SpringOne_at_VMware_Explore_2023_Scaling_Your_Spring_Boot_App_to_Zero.pdf)
 
 ### JVM Checkpoint/Restore demo app
 
